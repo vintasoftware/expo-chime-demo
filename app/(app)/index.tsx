@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useCallback } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button, ButtonText } from "@/components/ui/button";
 import { FormControl } from "@/components/ui/form-control";
 import { Input, InputField } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
@@ -11,16 +11,16 @@ export default function HomeScreen() {
   const router = useRouter();
   const [meetingTitle, setMeetingTitle] = React.useState("");
 
-  const handleStartMeeting = () => {
+  const handleStartMeeting = useCallback(() => {
     const title = meetingTitle.trim() || "New Meeting";
     router.push({
       pathname: "/(app)/[meeting]",
       params: { meeting: title },
     });
-  };
+  }, [meetingTitle, router]);
 
   return (
-    <VStack space="xl" className="flex-1 p-4">
+    <VStack space="xl" className="flex-1 bg-background-0 p-4">
       <VStack space="md">
         <Text size="2xl" bold>
           Video Meetings
@@ -42,7 +42,7 @@ export default function HomeScreen() {
         </FormControl>
 
         <Button size="lg" variant="solid" className="bg-primary-500" onPress={handleStartMeeting}>
-          <Text className="text-typography-white">Start Meeting</Text>
+          <ButtonText>Start Meeting</ButtonText>
         </Button>
       </VStack>
     </VStack>

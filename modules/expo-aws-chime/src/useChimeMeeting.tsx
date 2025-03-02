@@ -37,6 +37,7 @@ interface ChimeMeetingContextValue {
   error: string | null;
   currentMeeting: MeetingInfo | null;
   currentAttendee: AttendeeInfo | null;
+  checkAndRequestPermissions: () => Promise<boolean>;
   joinMeeting: (title: string) => Promise<void>;
   leaveMeeting: () => Promise<void>;
   toggleMute: () => Promise<void>;
@@ -278,6 +279,7 @@ export function ChimeMeetingProvider({ children }: { children: React.ReactNode }
     error,
     currentMeeting,
     currentAttendee,
+    checkAndRequestPermissions,
     joinMeeting,
     leaveMeeting,
     toggleMute,

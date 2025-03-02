@@ -59,7 +59,7 @@ npm install
 
 ### Running the App
 
-Currently only Android is supported. AWS Chime SDK doesn't support x86 emulators, so you (probably) need to use a physical device:
+Currently only Android is supported. AWS Chime SDK doesn't support x86 emulators, so you (probably) need to use a physical mobile device:
 
 1. Open Android Studio and connect your device. The easiest way is to pair your device with Wi-Fi using the ["Pair Devices Using Wi-Fi" option](https://developer.android.com/studio/run/device#wireless).
 
@@ -70,7 +70,7 @@ Currently only Android is supported. AWS Chime SDK doesn't support x86 emulators
 npx expo run:android
 ```
 
-3. Check your physical device.
+3. Check your physical mobile device.
 
 ## Project Structure
 

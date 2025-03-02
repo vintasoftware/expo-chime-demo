@@ -1,8 +1,8 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { MeetingScreen } from "@/components/MeetingScreen";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonText } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
@@ -10,13 +10,34 @@ import { ChimeMeetingProvider, useChimeMeeting } from "@/modules/expo-aws-chime"
 
 function MeetingWrapper({ title }: { title: string }) {
   const router = useRouter();
-  const { error, isLoading } = useChimeMeeting();
+  const { checkAndRequestPermissions, error, isLoading } = useChimeMeeting();
+  const [isPermissionsGranted, setIsPermissionsGranted] = useState(false);
+
+  const requestPermissions = useCallback(async () => {
+    const granted = await checkAndRequestPermissions();
+    setIsPermissionsGranted(granted);
+  }, [checkAndRequestPermissions]);
+
+  useEffect(() => {
+    requestPermissions();
+  }, [requestPermissions]);
 
   if (isLoading) {
     return (
       <VStack space="md" className="flex-1 items-center justify-center bg-background-0">
         <Spinner size="large" />
         <Text>Joining meeting...</Text>
+      </VStack>
+    );
+  }
+
+  if (!isPermissionsGranted) {
+    return (
+      <VStack space="md" className="flex-1 items-center justify-center bg-background-0 p-4">
+        <Text>Permissions not granted</Text>
+        <Button variant="outline" onPress={requestPermissions}>
+          <ButtonText>Request Permissions</ButtonText>
+        </Button>
       </VStack>
     );
   }
@@ -28,7 +49,7 @@ function MeetingWrapper({ title }: { title: string }) {
         <Button
           variant="outline"
           onPress={() => {
-            router.back();
+            router.dismissTo("/");
           }}
         >
           <Text>Go Back</Text>

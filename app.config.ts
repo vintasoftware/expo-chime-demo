@@ -20,10 +20,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     config: {
       usesNonExemptEncryption: false,
     },
-    bundleIdentifier: "com.vinta.healthapp",
-    infoPlist: {
-      UIBackgroundModes: ["remote-notification"],
-    },
+    bundleIdentifier: "com.vinta.expo-chime-demo",
   },
   android: {
     adaptiveIcon: {
@@ -31,17 +28,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: "#ffffff",
     },
     permissions: [
-      "android.permission.RECEIVE_BOOT_COMPLETED",
-      "android.permission.SCHEDULE_EXACT_ALARM",
-      "android.permission.POST_NOTIFICATIONS",
-      "android.permission.USE_FULL_SCREEN_INTENT",
       // Chime SDK required permissions
       "android.permission.CAMERA",
       "android.permission.MODIFY_AUDIO_SETTINGS",
       "android.permission.RECORD_AUDIO",
     ],
-    package: "com.vinta.healthapp",
-    googleServicesFile: process.env.GOOGLE_SERVICES_JSON || "./_dev/google-services.json",
+    package: "com.vinta.expo_chime_demo",
   },
   web: {
     bundler: "metro",

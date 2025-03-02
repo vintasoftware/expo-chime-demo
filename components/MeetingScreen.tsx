@@ -86,17 +86,17 @@ export function MeetingScreen({ meetingTitle }: MeetingScreenProps) {
 
   if (error) {
     return (
-      <VStack space="md" className="items-center">
+      <VStack space="md" className="items-center bg-background-0">
         <Text className="text-error-500">{error}</Text>
-        <Button onPress={() => joinMeeting(meetingTitle)}>
-          <ButtonText>Retry</ButtonText>
+        <Button onPress={() => router.dismissTo("/")}>
+          <ButtonText>Go Back</ButtonText>
         </Button>
       </VStack>
     );
   }
 
   return (
-    <VStack className="flex-1">
+    <VStack className="flex-1 bg-background-0">
       {/* Main video grid for remote participants */}
       <View className="relative flex-1">
         {remoteVideoTiles.length > 0 ? (
@@ -113,7 +113,7 @@ export function MeetingScreen({ meetingTitle }: MeetingScreenProps) {
                   key={`row-${rowIndex}`}
                   className={`my-1 flex-1 flex-row ${getRowHeightClass(gridLayout.length)}`}
                 >
-                  {tilesInRow.map((tile, tileIndex) => (
+                  {tilesInRow.map((tile) => (
                     <View key={tile.tileId} className="mx-1 flex-1 overflow-hidden rounded-lg">
                       <ExpoAWSChimeView
                         tileId={tile.tileId}
