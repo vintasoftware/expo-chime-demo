@@ -21,6 +21,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       usesNonExemptEncryption: false,
     },
     bundleIdentifier: "com.vinta.expo-chime-demo",
+    infoPlist: {
+      UIBackgroundModes: ["remote-notification"],
+      NSCameraUsageDescription: "We need access to your camera to capture photos and videos.",
+      NSMicrophoneUsageDescription: "We need access to your microphone to record audio.",
+    },
   },
   android: {
     adaptiveIcon: {
@@ -55,6 +60,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "expo-secure-store",
       {
         requireAuthentication: false,
+      },
+    ],
+    [
+      "react-native-permissions",
+      {
+        iosPermissions: ["Camera", "Microphone"],
       },
     ],
   ],
